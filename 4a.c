@@ -62,20 +62,20 @@ struct Node *search(struct Node *head, int data)
     }
     return NULL;
 }
-/*
-void insertAfter(Node *&head, int data, int info)
+
+void insertAfter(struct Node **head, int data, int info)
 {
-    Node *temp = search(head, data);
-    if (temp == nullptr)
+    struct Node *temp = search(*head, data);
+    if (temp == NULL)
     {
-        cout  data  " not found" ;
+        printf("%d not found", data);
         return;
     }
-    Node *newNode = new Node(info);
+    struct Node *newNode = getNode(info);
     newNode->next = temp->next;
     temp->next = newNode;
 }
-
+/*
 void removeBeg(Node *&head)
 {
 }
