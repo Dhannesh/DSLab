@@ -7,7 +7,6 @@ struct Node
     struct Node *next;
 };
 
-
 struct Node *getNode(int data)
 {
     struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
@@ -51,19 +50,19 @@ void insertLast(struct Node **head, int info)
         temp = temp->next;
     temp->next = newNode;
 }
-/*
-Node *search(Node *&head, int data)
+
+struct Node *search(struct Node *head, int data)
 {
-    Node *temp = head;
-    while (temp != nullptr)
+    struct Node *temp = head;
+    while (temp != NULL)
     {
         if (temp->info == data)
             return temp;
         temp = temp->next;
     }
-    return nullptr;
+    return NULL;
 }
-
+/*
 void insertAfter(Node *&head, int data, int info)
 {
     Node *temp = search(head, data);
