@@ -1,64 +1,68 @@
 #define SIZE 10
 #include <stdio.h>
 
-struct Queue
+struct CircularQueue
 {
     int data[SIZE];
     int front, rear;
-} Q;
+} CQ;
 
 int isEmpty()
 {
-    return Q.front == -1;
+    return CQ.front == -1;
 }
 int isFUll()
 {
-    return Q.rear == SIZE - 1;
+    return (CQ.rear + 1) % SIZE == CQ.front;
 }
 
 void enqueue(int info)
 {
-    if (Q.rear == SIZE - 1)
+    if (isFUll())
     {
-        printf("Queue is full\n");
+        printf("CQueue is full\n");
         return;
     }
-    if (Q.front == -1)
-        Q.front += 1;
-    Q.rear++;
-    Q.data[Q.rear] = info;
+    if (CQ.front == -1)
+        CQ.front += 1;
+    CQ.rear = (CQ.rear + 1) % SIZE;
+    CQ.data[CQ.rear] = info;
 }
 int dequeue()
 {
     int item;
-    if (Q.front == -1)
+    if (isEmpty())
     {
-        printf("\nQueue is empty\n");
+        printf("\nCQueue is empty\n");
         return -1;
     }
-    item = Q.data[Q.front];
-    if (Q.front == Q.rear)
-        Q.front = Q.rear = -1;
+    item = CQ.data[CQ.front];
+    if (CQ.front == CQ.rear)
+        CQ.front = CQ.rear = -1;
     else
-        Q.front++;
+        CQ.front = (CQ.front + 1) % SIZE;
     return item;
 }
 void traverse()
 {
     if (isEmpty())
     {
-        printf("Queue is Empty\n");
+        printf("CQueue is Empty\n");
         return;
     }
-    for (int i = Q.front; i <= Q.rear; i++)
+    printf("front=%d, rear=%d\n", CQ.front, CQ.rear);
+    int i = CQ.front;
+    while (i != CQ.rear)
     {
-        printf("%d ", Q.data[i]);
+        printf("%d ", CQ.data[i]);
+        i = (i + 1) % SIZE;
     }
+    printf("%d ", CQ.data[i]);
     printf("\n");
 }
 int main()
 {
-    Q.front = Q.rear = -1;
+    CQ.front = CQ.rear = -1;
     int ch, info;
     do
     {
@@ -86,10 +90,10 @@ int main()
             traverse();
             break;
         case 4:
-            printf("The queue is %s\n", (isEmpty() ? "Empty" : "Not Empty"));
+            printf("The Circular Queue is %s\n", (isEmpty() ? "Empty" : "Not Empty"));
             break;
         case 5:
-            printf("The queue is %s\n", (isFUll() ? "Full" : "Not Full"));
+            printf("The Circular Queue is %s\n", (isFUll() ? "Full" : "Not Full"));
             break;
         case 6:
             printf("\nThis code is executed by Mr. XYZ with Roll No XXXXXX\n");
